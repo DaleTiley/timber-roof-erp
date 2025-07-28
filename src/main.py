@@ -15,6 +15,11 @@ from src.routes.customer import customer_bp
 from src.routes.contact import contact_bp
 from src.routes.stock import stock_bp
 from src.routes.quote_pricing import quote_pricing_bp
+# Added 2025-01-28 - New configuration modules
+from src.routes.supplier import supplier_bp
+from src.routes.uom import uom_bp
+from src.routes.categories import categories_bp
+from src.routes.types import types_bp
 
 def create_app(config_name=None):
     """
@@ -39,6 +44,11 @@ def create_app(config_name=None):
     app.register_blueprint(contact_bp, url_prefix='/api')
     app.register_blueprint(stock_bp, url_prefix='/api')
     app.register_blueprint(quote_pricing_bp)
+    # Added 2025-01-28 - New configuration modules
+    app.register_blueprint(supplier_bp, url_prefix='/api')
+    app.register_blueprint(uom_bp, url_prefix='/api')
+    app.register_blueprint(categories_bp, url_prefix='/api')
+    app.register_blueprint(types_bp, url_prefix='/api')
     
     # Create tables
     with app.app_context():
@@ -74,6 +84,9 @@ db.init_app(app)
 from src.models.customer import Customer
 from src.models.contact import Contact
 from src.models.stock import StockItem, StockType, UnitOfMeasure, MarginGroup, DiscountGroup, CommissionGroup
+# Added 2025-01-28 - New configuration models
+from src.models.supplier import Supplier
+from src.models.advanced_stock import StockCategory, VariantAttribute, VariantAttributeValue, AdvancedStockItem
 
 with app.app_context():
     db.create_all()
